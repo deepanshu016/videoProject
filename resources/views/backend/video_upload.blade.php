@@ -22,7 +22,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title mb-0">Upload Vide</h4>
+                        <h4 class="card-title mb-0">Upload Video</h4>
                     </div>
                     <!-- end card header -->
                     <div class="card-body">
@@ -41,46 +41,23 @@
 
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
-                                                        <label for="basiInput" class="form-label">Course Full Name</label>
-                                                        <input class="form-control" type="text" name="course_full_name"  placeholder="Course Full Name">
-                                                        <span class="text-danger" id="course_full_name"></span>
+                                                        <label for="basiInput" class="form-label">Video Name</label>
+                                                        <input class="form-control" type="text" name="video_name"  placeholder="Video Name">
+                                                        <span class="text-danger" id="video_name"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
-                                                        <label for="basiInput" class="form-label">Certificate Image</label>
-                                                        <input class="form-control" type="file" name="certificate_video">
-                                                        <span class="text-danger" id="certificate_image"></span>
+                                                        <label for="basiInput" class="form-label">Video</label>
+                                                        <input class="form-control" type="file" name="video">
+                                                        <span class="text-danger" id="video"></span>
 
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <label for="basiInput" class="form-label">Marksheet Image</label>
-                                                        <input class="form-control" type="file" name="marksheet_image" accept="image/*">
-                                                        <span class="text-danger" id="marksheet_image"></span>
-
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <label for="basiInput" class="form-label">Certificate Number Prefix</label>
-                                                        <input class="form-control" type="text" name="certificate_no_prefix" placeholder="Certificate Number Prefix">
-                                                        <span class="text-danger" id="certificate_no_prefix"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <label for="basiInput" class="form-label">Count Start</label>
-                                                        <input class="form-control" type="text" name="count_start" placeholder="Count Start">
-                                                        <span class="text-danger" id="count_start"></span>
-                                                    </div>
-                                                </div>
-
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6" style="margin-top: 15px;">
-                                                    <button type="submit" class="btn rounded-pill btn-success waves-effect waves-light">Update</button>
+                                                    <button type="submit" class="btn rounded-pill btn-success waves-effect waves-light">Submit Video</button>
 
                                                 </div>
                                             </div>

@@ -649,6 +649,7 @@
     </div>
 
     <!-- JAVASCRIPT -->
+    <script src="{{ asset('public/backend/js/jquery.js') }}"></script>
     <script src="{{ asset('public/backend/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('public/backend/libs/simplebar/simplebar.min.js') }}"></script>
     <script src="{{ asset('public/backend/libs/node-waves/waves.min.js') }}"></script>

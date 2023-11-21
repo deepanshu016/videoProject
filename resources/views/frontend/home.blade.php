@@ -1,5 +1,5 @@
 @extends("frontend.includes.layout")
-@section('title','Event Organiser | Home Page')
+@section('title','Event Organizer | Home Page')
 @section('content')
 <!--Main Content Area-->
 <section class="mt-40">
