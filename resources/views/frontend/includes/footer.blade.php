@@ -1,5 +1,5 @@
 <!--Footer Area -->
-<footer class="footer-area section-padding-2">
+<!-- <footer class="footer-area section-padding-2">
     <div class="container-fluid">
         <div class="row">
             <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6">
@@ -22,7 +22,7 @@
                 <div class="footer-widget footer-nav">
                     <h3>Quick links</h3>
                     <ul>
-                        <li><a href="">home</a></li>
+                        <li><a href="{{ route('home') }}">home</a></li>
                         <li><a href="{{ route('about.us') }}">about us</a></li>
                         <li><a href="">videos</a></li>
                         <li><a href="">latest videos</a></li>
@@ -62,7 +62,7 @@
                         <li><a href="">Forum</a></li>
                         <li><a href="">FAQ</a></li>
                         <li><a href="">Blog</a></li>
-                        <li><a href="">Contact us</a></li>
+                        <li><a href="{{ route('contact.us') }}">Contact us</a></li>
                     </ul>
                 </div>
             </div>
@@ -74,13 +74,13 @@
                         <li><a href="">Forum</a></li>
                         <li><a href="">FAQ</a></li>
                         <li><a href="">Blog</a></li>
-                        <li><a href="">Contact us</a></li>
+                        <li><a href="{{ route('contact.us') }}">Contact us</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-</footer>
+</footer> -->
 <div class="copyright2">
     <div class="container-fluid">
         <div class="row">
@@ -93,7 +93,7 @@
                 <div class="copy-nav">
                     <ul>
                         <li><a href="">Privacy</a></li>
-                        <li><a href="">Contact</a></li>
+                        <li><a href="{{ route('contact.us') }}">Contact</a></li>
                         <li><a href="">Terms & service</a></li>
                         <li><a href="">Conditions</a></li>
                     </ul>

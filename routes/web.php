@@ -28,8 +28,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
         Route::get('video-upload', [VideoController::class,'index'])->name('video.upload');
         Route::post('video-upload', [ VideoController::class, 'videoUpload' ])->name('video.upload');
-
-
+        Route::get('logout', [ AuthController::class, 'logout' ])->name('logout');
     });
     //Route::post('/login', [AuthController::class,'index'])->name('admin.login');
     // More routes specific to the admin panel

@@ -31,13 +31,18 @@ $(document).on("submit",'.all-form',function(e){
         dataType: 'json',
         processData: false,
         contentType: false,
+        beforeSend: function() {
+            $('#loader-container').show();
+        },
         error: function(xhr){
+            $('#loader-container').hide();
             var errors = xhr.responseJSON.errors;
             $.each(errors, function(index, value) {
                 $("#"+index).html(value)
             });
         },
         success: function(data){
+            $('#loader-container').hide();
             if(data.status == 'error'){
                 $.each(data.errors, function(key, value) {
                     $('#' + key).addClass('is-invalid');
@@ -53,4 +58,15 @@ $(document).on("submit",'.all-form',function(e){
             }
         }
     });
+})
+$(document).on("change",".switch-video-type",function(e){
+   const type = $(this).val();
+   if(type === '1'){
+        $(".upload_video").show();
+        $(".uplaod_video_url").hide();
+   }
+   if(type === '2'){
+        $(".upload_video").hide();
+        $(".uplaod_video_url").show();
+   }
 })

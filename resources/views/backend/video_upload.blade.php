@@ -37,32 +37,78 @@
                                 <form action="{{ route('video.upload') }}" method="POST" enctype="multipart/form-data" class="all-form">
                                     @csrf
                                         <div class="live-preview">
-                                            <div class="row">
-
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <label for="basiInput" class="form-label">Video Name</label>
-                                                        <input class="form-control" type="text" name="video_name"  placeholder="Video Name">
-                                                        <span class="text-danger" id="video_name"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <label for="basiInput" class="form-label">Video</label>
-                                                        <input class="form-control" type="file" name="video">
-                                                        <span class="text-danger" id="video"></span>
-
-                                                    </div>
-                                                </div>
+                                            <div class="mb-3">
+                                               <label for="category" class="form-label">Category</label>
+                                               <select class="form-control" aria-label="Default select example" name="category">
+                                                 <option value="">-----Select----</option>
+                                                @if(!empty($categories))
+                                                    @foreach($categories as $cateogry)
+                                                          <option value="{{ $cateogry->category_id }}">{{ $cateogry->category_name }}</option>
+                                                    @endforeach
+                                                @endif
+                                               </select>
+                                               <span class="text-danger" id="category"> </span>
+                                            </div>
+                                            <div class="mb-3">
+                                               <label for="videoType" class="form-label">Video Type</label>
+                                               <select class="form-control switch-video-type" aria-label="Default select example" name="video_type">
+                                                  <option value="">-----Select----</option>
+                                                  <option value="1">Upload Video</option>
+                                                  <option value="2">URL</option>
+                                               </select>
+                                                <span class="text-danger" id="video_type"> </span>
+                                            </div>
+                                            <div class="mb-3 upload_video" style="display: none;">
+                                               <label for="uploadVideo" class="form-label">Upload Video</label>
+                                               <input type="file" class="form-control" id="uploadVideo" name="video">
+                                               <span class="text-danger" id="video"> </span>
+                                            </div>
+                                            <div class="mb-3 uplaod_video_url" style="display: none;">
+                                               <label for="videoEmbededCode" class="form-label">Video URL</label>
+                                               <input type="text" class="form-control" id="videoEmbededCode" placeholder="Video URL" name="video_url">
+                                               <span class="text-danger" id="video_url"> </span>
+                                            </div>
+                                            <div class="mb-3">
+                                               <label for="videoTitle" class="form-label">Video Title</label>
+                                               <input type="text" class="form-control" id="videoTitle" placeholder="Enter video title" name="video_title">
+                                               <span class="text-danger" id="video_title"> </span>
+                                            </div>
+                                            
+                                            <div class="mb-3">
+                                               <label for="timeForLive" class="form-label">Time For live</label>
+                                               <input type="datetime-local" class="form-control" id="timeForLive">
+                                            </div>
+                                            <div class="mb-3">
+                                               <label for="videoFuturedImage" class="form-label">Choose File (for Upload Video and Video Futured Image)</label>
+                                               <input type="file" class="form-control" id="videoFuturedImage" name="video_image">
+                                               <span class="text-danger" id="video_image"> </span>
+                                            </div>
+                                            <div class="mb-3">
+                                               <label for="addTags" class="form-label">Add Tags</label>
+                                               <input type="text" class="form-control" id="addTags" placeholder="Enter tags" name="video_tags">
+                                               <span class="text-danger" id="video_tags"> </span>
+                                            </div>
+                                            <div class="mb-3">
+                                               <label for="trendingTopic" class="form-label">Trending Topic</label>
+                                               <input type="text" class="form-control" id="trendingTopic" placeholder="Enter trending topic" name="trending_topics">
+                                               <span class="text-danger" id="trending_topics"> </span>
+                                            </div>
+                                            <div class="mb-3">
+                                               <label for="videoEmbededCode" class="form-label">Video Embeded Code</label>
+                                               <input type="text" class="form-control" id="videoEmbededCode" placeholder="Enter video embedded code">
+                                            </div>
+                                            <div class="mb-3">
+                                               <label for="videoDescription" class="form-label">Video Description</label>
+                                               <textarea class="form-control" id="videoDescription" rows="3" placeholder="Enter video description"></textarea>
+                                               <span class="text-danger" id="video_description"> </span>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6" style="margin-top: 15px;">
-                                                    <button type="submit" class="btn rounded-pill btn-success waves-effect waves-light">Submit Video</button>
-
+                                                    <button type="submit" class="btn rounded-pill btn-success waves-effect waves-light">Save</button>
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
+                                </form>
                             </div>
                         </div>
                     </div>

@@ -9,13 +9,13 @@
     "license": "MIT",
     "require": {
         "php": "^7.3",
-        "aws/aws-sdk-php": "^3.287",
+        "aws/aws-sdk-php": "^3.288",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
-        "league/flysystem-aws-s3-v3": "^1.0"
+        "league/flysystem-aws-s3-v3": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",

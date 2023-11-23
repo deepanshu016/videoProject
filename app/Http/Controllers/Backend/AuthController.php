@@ -48,4 +48,10 @@ Class AuthController extends Controller {
         }
         return $userDetails;
     }
+
+    public static function logout() 
+    {
+        session()->flush();
+        return redirect(url('admin'));
+    }
 }

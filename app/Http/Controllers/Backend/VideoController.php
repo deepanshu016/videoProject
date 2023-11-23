@@ -4,29 +4,51 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\VideoUploadRequest;
 use Illuminate\Http\Request;
+use Aws\S3\S3Client;
+
 use App\Models\Admin;
+use App\Models\Category;
 
 Class VideoController extends Controller {
 
 
     // Home Page
     public function index(Request $request) {
-        return view('backend.video_upload');
+        $categories = Category::all();
+        return view('backend.video_upload',compact('categories'));
     }
 
     // Upload Videos
     public function videoUpload(VideoUploadRequest $request)
     {
-        if ($request->hasFile('video')) {
-            $file = $request->file('video');
-            $path = $file->store('video', 's3');
-            // 'videos' is the folder name in the S3 bucket
-            // Optionally, you can retrieve the uploaded file URL
-            $url = Storage::disk('s3')->url($path);
-            // Process further actions or return a response
-            return response()->json(['url' => $url]);
+
+       $file = $request->file('video');
+        if (!$file) {
+            return redirect()->back()->withErrors(['video' => 'Please select a video to upload.']);
         }
-        // Handle cases where the file isn't present
-        return response()->json(['error' => 'No file found.']);
+
+        $fileName = $file->getClientOriginalName();
+        $file->move(storage_path('app/public/videos'), $fileName);
+
+        $client = new S3Client([
+            'region' => 'us-east-1',
+            'credentials' => [
+                'key' => 'AKIA4O7PPMTIIP5PZ3J6',
+                'secret' => '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',
+            ]
+        ]);
+
+        $bucketName = 'video-uploader-event';
+        $client->putObject([
+            'Bucket' => $bucketName,
+            'Key' => $fileName,
+            'Body' => fopen(storage_path('app/public/videos/' . $fileName), 'rb'),
+            'ACL' => 'public-read',
+        ]);
+
+        $url = $client->getObjectUrl($bucketName, $fileName);
+
+        return response()->json(array('success'=> $url));
+
     }
 }
