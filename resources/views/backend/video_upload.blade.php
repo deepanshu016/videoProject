@@ -34,7 +34,7 @@
                                     </div>
                                 </div>
 
-                                <form action="{{ route('video.upload') }}" method="POST" enctype="multipart/form-data" class="all-form">
+                                <form action="{{ route('video.upload') }}" method="POST" enctype="multipart/form-data" class="upload-video">
                                     @csrf
                                         <div class="live-preview">
                                             <div class="mb-3">
@@ -80,8 +80,24 @@
                                             </div>
                                             <div class="mb-3">
                                                <label for="videoFuturedImage" class="form-label">Choose File (for Upload Video and Video Futured Image)</label>
-                                               <input type="file" class="form-control" id="videoFuturedImage" name="video_image">
+                                               <input type="file" class="form-control" id="featured_image" name="video_image">
                                                <span class="text-danger" id="video_image"> </span>
+                                                <div class="card bg-light overflow-hidden progress-bar-wrraper" style="display: none;">
+                                                    <div class="card-body">
+                                                        <div class="d-flex">
+                                                            <div class="flex-grow-1">
+                                                                <h6 class="mb-0"><b class="text-secondary" id="progressPercentage">0%</b> </h6>
+                                                            </div>
+                                                            <div class="flex-shrink-0">
+                                                                <h6 class="mb-0" id="timeLeft">Calculating...</h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="progress bg-soft-secondary rounded-0">
+                                                        <div class="progress-bar bg-secondary" role="progressbar" style="width: 0%;" id="progressBar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                             <div class="mb-3">
                                                <label for="addTags" class="form-label">Add Tags</label>
@@ -93,13 +109,10 @@
                                                <input type="text" class="form-control" id="trendingTopic" placeholder="Enter trending topic" name="trending_topics">
                                                <span class="text-danger" id="trending_topics"> </span>
                                             </div>
-                                            <div class="mb-3">
-                                               <label for="videoEmbededCode" class="form-label">Video Embeded Code</label>
-                                               <input type="text" class="form-control" id="videoEmbededCode" placeholder="Enter video embedded code">
-                                            </div>
+                                            
                                             <div class="mb-3">
                                                <label for="videoDescription" class="form-label">Video Description</label>
-                                               <textarea class="form-control" id="videoDescription" rows="3" placeholder="Enter video description"></textarea>
+                                               <textarea class="form-control" id="videoDescription" rows="3" placeholder="Enter video description" name="video_description"></textarea>
                                                <span class="text-danger" id="video_description"> </span>
                                             </div>
                                             <div class="row">

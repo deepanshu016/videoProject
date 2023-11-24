@@ -26,6 +26,7 @@
     <!-- custom Css-->
     <link href="{{ asset('public/backend/css/custom.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('public/backend/css/style.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('public/backend/css/toastr.css') }}" rel="stylesheet" type="text/css" />
 
 
 </head>
@@ -692,5 +693,6 @@
     <!-- App js -->
     <script src="{{ asset('public/backend/js/app.js') }}"></script>
     <script src="{{ asset('public/backend/js/custom.js') }}"></script>
+    <script src="{{ asset('public/backend/js/toastr.js') }}"></script>
 </body>
 </html>
