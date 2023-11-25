@@ -27,12 +27,12 @@ Class AuthController extends Controller {
             $userDetails = Admin::where(array('email'=>$email,'password'=>$password))->first();
             if($userDetails){
                 $request->session()->put('admin',$userDetails);
-                $response = array('status'=>'success','message'=>'Login Successfull!!','type'=>'success','title'=>'Success','url'=>url('admin/dashboard'));
+                $response = array('status'=>'success','msg'=>'Login Successfull!!','type'=>'success','title'=>'Success','url'=>url('admin/dashboard'));
             }else{
-                $response = array('status'=>'error','message'=>'Credentials not matched','type'=>'error','title'=>'Failure');
+                $response = array('status'=>'error','msg'=>'Credentials not matched','type'=>'error','title'=>'Failure');
             }
        }catch (Exception $e){
-           $response = array('status'=>'error','message'=>$e->getMessage(),'type'=>'error','title'=>'Failure');
+           $response = array('status'=>'error','msg'=>$e->getMessage(),'type'=>'error','title'=>'Failure');
        }
        return response()->json($response);
     }

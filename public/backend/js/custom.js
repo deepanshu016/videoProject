@@ -116,20 +116,33 @@ $(document).on("submit",'.upload-video',function(e){
             });
         },
         success: function(data){
-            // $('#loader-container').hide();
-            if(data.status == 'error'){
-                $.each(data.errors, function(key, value) {
-                    $('#' + key).addClass('is-invalid');
+            const response = fetch(data.presignedUrl, {
+                method: 'PUT',
+                body: file,
+                headers: {
+                    'Content-Type': file.type,
+                },
+            });
 
-                    $('#' + key).html(value);
-                });
+            if (response.ok) {
+               showNotify('Video Uplaoded successfully','succes','');
+            } else {
+                // Handle error if upload fails
             }
-            if(data.status == 'success'){
-                showNotify(data.msg,data.status,data.url);
-            }
-            if(data.status == 'errors'){
-                showNotify(data.msg,data.status,data.url);
-            }
+            // $('#loader-container').hide();
+            // if(data.status == 'error'){
+            //     $.each(data.errors, function(key, value) {
+            //         $('#' + key).addClass('is-invalid');
+
+            //         $('#' + key).html(value);
+            //     });
+            // }
+            // if(data.status == 'success'){
+            //     showNotify(data.msg,data.status,data.url);
+            // }
+            // if(data.status == 'errors'){
+            //     showNotify(data.msg,data.status,data.url);
+            // }
         }
     });
 });
