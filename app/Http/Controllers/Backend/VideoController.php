@@ -8,6 +8,7 @@ use Aws\S3\S3Client;
 use App\Models\Admin;
 use App\Models\Category;
 use App\Models\Video;
+use DataTables;
 
 Class VideoController extends Controller {
 
@@ -18,6 +19,10 @@ Class VideoController extends Controller {
         return view('backend.video_upload',compact('categories'));
     }
 
+    public function list(Request $request)
+    {
+       return view('backend.videos.list');
+    }
     // Upload Videos
     public function videoUpload(Request $request)
     {
@@ -137,6 +142,58 @@ Class VideoController extends Controller {
             return response()->json(['success' => true], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+    public function videoList(Request $request)
+    {
+       try{
+            
+            if ($request->ajax()) {
+                 $videoList = Video::with('category')->orderBy('video_id','DESC')->get();
+                return Datatables::of($videoList)
+                        ->addIndexColumn()
+                        ->editColumn('category', function($row){
+                            return $row->category->category_name;
+                        })
+                        ->editColumn('video_type', function($row){
+                               if($row->video_type == '1'){
+                                    $video_type = '<span class="badge badge-soft-success">S3 Bucket</span>';
+                               }else{
+                                    $video_type = '<span class="badge badge-soft-danger">Video URL</span>';
+                               }
+                               return $video_type;
+                        })
+                        ->editColumn('live_video', function($row){
+                               if($row->time_for_live){
+                                    $live_video = '<span class="badge badge-soft-danger">No</span>';
+                               }else{
+                                    $live_video = '<span class="badge badge-soft-success">Yes</span>';
+                               }
+                               return $live_video;
+                        })
+                        ->editColumn('featured_image', function($row){
+                               if($row->video_futured_image){
+                                    $video_futured_image = '<img src="'.$row->video_futured_image.'" alt="Featured Image" width="50px" height="50px">';
+                               }else{
+                                    $video_futured_image = '';
+                               }
+                               return $video_futured_image;
+                        })
+                        ->addColumn('action', function($row){
+                            $btn = '';
+                            $btn .= '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">Edit</a>';
+                            $btn .= '<a href="javascript:void(0)" class="edit btn btn-danger btn-sm">Delete</a>';
+                            return $btn;
+                        })
+                        ->rawColumns(['action','category','video_type','live_video','featured_image'])
+                        ->make();
+            }
+        
+        return view('users');
+            // return response()->json(array('status'=> 'success','msg'=>'Video uploaded successfully','data'=>$videoList)); 
+       }catch(Exception $e){
+            \Log::debug($e->getMessage());
+            return response()->json(array('status'=> 'error','msg'=>$e->getMessage(),'url'=>'')); 
         }
     }
 }

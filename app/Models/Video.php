@@ -2,7 +2,7 @@
 
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
-use App\Model\Category;
+use App\Models\Category;
 class Video extends Model
 {
 	protected $table = 'tbl_videos';
@@ -17,4 +17,9 @@ class Video extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function getVideoFuturedImageAttribute($value){
+    	$value = asset('public').'/'.$value;
+    	return $value;
+    }	
 }

@@ -28,6 +28,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
         Route::get('video-upload', [VideoController::class,'index'])->name('video.upload');
         Route::post('video-upload', [ VideoController::class, 'videoUpload' ])->name('video.upload');
+        Route::get('video-list', [ VideoController::class, 'list' ])->name('video.list');
+        Route::get('video-lists', [ VideoController::class, 'videoList' ])->name('video.lists');
         Route::get('logout', [ AuthController::class, 'logout' ])->name('logout');
     });
     //Route::post('/login', [AuthController::class,'index'])->name('admin.login');
