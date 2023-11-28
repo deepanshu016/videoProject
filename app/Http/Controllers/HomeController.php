@@ -2,13 +2,19 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\Video;
 
 Class HomeController extends Controller {
 
 
     // Home Page
     public function index(Request $request) {
-        return view('frontend.home');
+        $categories = Category::all();
+        $videoList = Video::with('category')->orderBy('video_id','DESC')->get();
+        // echo "<pre>";
+        // print_r($videoList);die;
+        return view('frontend.home',compact('categories','videoList'));
     }
     // About Us
     public function AboutUs(Request $request) {

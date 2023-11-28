@@ -2,23 +2,11 @@
     <aside class="content-sidebar mb-40">
         <h3>Categories</h3>
         <ul class="sidebar-cat-height">
-            <li><a href=""><i class="jam jam-anchor"></i> Trending Topic</a></li>
-            <li><a href=""><i class="jam jam-aperture"></i> Awesome Ideas</a></li>
-            <li><a href=""><i class="jam jam-picture"></i> Natural Beauty</a></li>
-            <li><a href=""><i class="jam jam-archive"></i> Inhouse</a></li>
-            <li><a href=""><i class="jam jam-bookmark"></i> Outside of wall</a></li>
-            <li><a href=""><i class="jam jam-glass-empty"></i> In a hill</a></li>
-            <li><a href=""><i class="jam jam-cog"></i> London Tower</a></li>
-            <li><a href=""><i class="jam jam-direction"></i> Tourist Vlog</a></li>
-            <li><a href=""><i class="jam jam-egg"></i> Product Review</a></li>
-            <li><a href=""><i class="jam jam-flag"></i> Technology extending</a></li>
-            <li><a href=""><i class="jam jam-ghost"></i> Review Product</a></li>
-            <li><a href=""><i class="jam jam-gps"></i> Gym Fitness</a></li>
-            <li><a href=""><i class="jam jam-info"></i> Strong Body builders</a></li>
-            <li><a href=""><i class="jam jam-medal"></i> Football club</a></li>
-            <li><a href=""><i class="jam jam-refresh-reverse"></i> Viral News</a></li>
-            <li><a href=""><i class="jam jam-shield-plus"></i> Funny Contents</a></li>
-            <li><a href=""><i class="jam jam-tablet"></i> Others videos</a></li>
+            @if(!empty($categories))
+                @foreach($categories as $category)
+                    <li><a href="{{ $category->id }}"><i class="jam jam-anchor"></i> {{ $category->category_name }}</a></li>
+                @endforeach
+            @endif
         </ul>
     </aside>
     <aside class="content-sidebar mb-40">

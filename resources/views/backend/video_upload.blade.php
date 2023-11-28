@@ -43,7 +43,7 @@
                                                  <option value="">-----Select----</option>
                                                 @if(!empty($categories))
                                                     @foreach($categories as $cateogry)
-                                                          <option value="{{ $cateogry->category_id }}">{{ $cateogry->category_name }}</option>
+                                                          <option value="{{ $cateogry->id }}">{{ $cateogry->category_name }}</option>
                                                     @endforeach
                                                 @endif
                                                </select>
@@ -101,7 +101,7 @@
                                             </div>
                                             <div class="mb-3">
                                                <label for="addTags" class="form-label">Add Tags</label>
-                                               <input type="text" class="form-control" id="addTags" placeholder="Enter tags" name="video_tags">
+                                               <input type="text" class="form-control tags" id="addTags" placeholder="Enter tags" name="video_tags">
                                                <span class="text-danger" id="video_tags"> </span>
                                             </div>
                                             <div class="mb-3">
@@ -135,4 +135,13 @@
     </div>
     <!-- container-fluid -->
 </div>
+@endsection
+@section('page_script')
+<script type="text/javascript">
+  $(function () {
+ 
+     $('.tags').tagify();
+    
+  });
+</script>
 @endsection

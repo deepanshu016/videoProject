@@ -24,7 +24,7 @@ Class VideoController extends Controller {
        return view('backend.videos.list');
     }
     // Upload Videos
-    public function videoUpload(Request $request)
+    public function videoUpload(VideoUploadRequest $request)
     {
        
         try{
@@ -62,7 +62,7 @@ Class VideoController extends Controller {
                 $path = $request->file('video_image')->store('uploads', 'public');
                 $video->video_futured_image = $path;
             }
-            $video->category_id = $request->category;
+            $video->category_id = 1;
             $video->video_type = $request->video_type;
             $video->video_title = $request->video_title;
             $video->time_for_live = $request->time_for_live;
@@ -71,7 +71,7 @@ Class VideoController extends Controller {
             $video->video_description = $request->video_description;
             $video->save();
             if($video->id){
-                return response()->json(array('status'=> 'success','msg'=>'Video uploaded successfully','url'=>route('video.upload'))); 
+                return response()->json(array('status'=> 'success','msg'=>'Video uploaded successfully','url'=>url('admin/video-upload'))); 
             }
             return response()->json(array('status'=> 'error','msg'=>'Something went wrong','url'=>'')); 
           
@@ -82,7 +82,7 @@ Class VideoController extends Controller {
 
     }
 
-
+ 
     public function upload(Request $request)
     {
         $file = $request->file('video');
@@ -149,7 +149,7 @@ Class VideoController extends Controller {
        try{
             
             if ($request->ajax()) {
-                 $videoList = Video::with('category')->orderBy('video_id','DESC')->get();
+                $videoList = Video::with('category')->orderBy('video_id','DESC')->get();
                 return Datatables::of($videoList)
                         ->addIndexColumn()
                         ->editColumn('category', function($row){

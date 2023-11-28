@@ -74,6 +74,7 @@ $(document).on("submit",'.upload-video',function(e){
     const fileInput = document.getElementById('featured_image');
     const file = fileInput.files[0];
      let startTime = new Date().getTime();
+     let success = false; 
     $.ajax({
         type: method,
         url: url,
@@ -81,13 +82,13 @@ $(document).on("submit",'.upload-video',function(e){
         dataType: 'json',
         processData: false,
         contentType: false,
-        // beforeSend: function() {
-        //     $('#loader-container').show();
-        // },
+        beforeSend: function() {
+            $('#loader-container').show();
+        },
         xhr: function() {
             const xhr = new window.XMLHttpRequest();
             xhr.upload.addEventListener('progress', function(event) {
-                if (event.lengthComputable) {
+                if (success && event.lengthComputable) {
                     $(".progress-bar-wrraper").show();
                     const progressBarFill = $('#progressBar');
                     const progressPercentage = $('#progressPercentage');
@@ -108,41 +109,34 @@ $(document).on("submit",'.upload-video',function(e){
             return xhr;
         },
         error: function(xhr){
-            $(".progress-bar-wrapper").hide();
-            $('#loader-container').hide();
-            var errors = xhr.responseJSON.errors;
-            $.each(errors, function(index, value) {
-                $("#"+index).html(value)
-            });
+           if (xhr.status === 422) {
+                $('#loader-container').hide();
+                var errors = JSON.parse(xhr.responseText);
+                $.each(errors.errors, function(index, value) {
+
+                    $("#" + index).html(value);
+                });
+            } else {
+                console.log("No errors found in response.");
+            }
+            success = false;
         },
         success: function(data){
-            const response = fetch(data.presignedUrl, {
-                method: 'PUT',
-                body: file,
-                headers: {
-                    'Content-Type': file.type,
-                },
-            });
+            $('#loader-container').hide();
+            success = true;
+            if(data.status == 'error'){
+                $.each(data.errors, function(key, value) {
+                    $('#' + key).addClass('is-invalid');
 
-            if (response.ok) {
-               showNotify('Video Uplaoded successfully','succes','');
-            } else {
-                // Handle error if upload fails
+                    $('#' + key).html(value);
+                });
             }
-            // $('#loader-container').hide();
-            // if(data.status == 'error'){
-            //     $.each(data.errors, function(key, value) {
-            //         $('#' + key).addClass('is-invalid');
-
-            //         $('#' + key).html(value);
-            //     });
-            // }
-            // if(data.status == 'success'){
-            //     showNotify(data.msg,data.status,data.url);
-            // }
-            // if(data.status == 'errors'){
-            //     showNotify(data.msg,data.status,data.url);
-            // }
+            if(data.status == 'success'){
+                showNotify(data.msg,data.status,data.url);
+            }
+            if(data.status == 'errors'){
+                showNotify(data.msg,data.status,data.url);
+            }
         }
     });
 });

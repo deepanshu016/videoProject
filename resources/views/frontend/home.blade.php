@@ -10,66 +10,30 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                         <div class="main-content-slider owl-carousel mb-40">
-                            <div class="content">
-                                <a href="single-video.html">
-                                    <div class="thumb">
-                                        <img src="{{ asset('public/frontend/images/banner/hero-3.jpg') }}" alt="">
-                                    </div>
-                                    <div class="text">
-                                        <h4>Natural Moment to spend a lot <span>5:48 min</span></h4>
-                                        <div class="metas">
-                                            <span><i class="fa fa-user"></i>Robbin</span>
-                                            <span><i class="fa fa-comment"></i>05</span>
-                                            <span><i class="fa fa-eye"></i>23M</span>
-                                            <span><i class="fa fa-thumbs-up"></i>21K</span>
-                                            <span><i class="fa fa-thumbs-down"></i>2.3K</span>
+                        @if(!empty($videoList))
+                            @foreach($videoList as $video)
+                                <div class="content">
+                                    <a href="#">
+                                        <div class="thumb">
+                                            <img src="{{ $video->video_futured_image }}" alt="">
                                         </div>
-                                    </div>
-                                    <div class="play">
-                                        <i class="jam jam-play"></i>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="content">
-                                <a href="single-video.html">
-                                    <div class="thumb">
-                                        <img src="{{ asset('public/frontend/images/banner/hero-4.jpg') }}" alt="">
-                                    </div>
-                                    <div class="text">
-                                        <h4>Natural Beauty to explore outside <span>5:48 min</span></h4>
-                                        <div class="metas">
-                                            <span><i class="fa fa-user"></i>Robbin</span>
-                                            <span><i class="fa fa-comment"></i>05</span>
-                                            <span><i class="fa fa-eye"></i>23M</span>
-                                            <span><i class="fa fa-thumbs-up"></i>21K</span>
-                                            <span><i class="fa fa-thumbs-down"></i>2.3K</span>
+                                        <div class="text">
+                                            <h4>{{ $video->video_title }}</h4>
+                                            <!-- <div class="metas">
+                                                <span><i class="fa fa-user"></i>Robbin</span>
+                                                <span><i class="fa fa-comment"></i>05</span>
+                                                <span><i class="fa fa-eye"></i>23M</span>
+                                                <span><i class="fa fa-thumbs-up"></i>21K</span>
+                                                <span><i class="fa fa-thumbs-down"></i>2.3K</span>
+                                            </div> -->
                                         </div>
-                                    </div>
-                                    <div class="play">
-                                        <i class="jam jam-play"></i>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="content">
-                                <a href="single-video.html">
-                                    <div class="thumb">
-                                        <img src="{{ asset('public/frontend/images/banner/hero-5.jpg') }}" alt="">
-                                    </div>
-                                    <div class="text">
-                                        <h4>Natural Beauty to explore outside <span>5:48 min</span></h4>
-                                        <div class="metas">
-                                            <span><i class="fa fa-user"></i>Robbin</span>
-                                            <span><i class="fa fa-comment"></i>05</span>
-                                            <span><i class="fa fa-eye"></i>23M</span>
-                                            <span><i class="fa fa-thumbs-up"></i>21K</span>
-                                            <span><i class="fa fa-thumbs-down"></i>2.3K</span>
+                                        <div class="play">
+                                            <i class="jam jam-play"></i>
                                         </div>
-                                    </div>
-                                    <div class="play">
-                                        <i class="jam jam-play"></i>
-                                    </div>
-                                </a>
-                            </div>
+                                    </a>
+                                </div>  
+                            @endforeach
+                        @endif
                         </div>
                     </div>
                 </div>

@@ -51,7 +51,30 @@
                                 <a href="{{ route('video.upload')  }}" class="nav-link" data-key="t-basic-elements">Upload Videos</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link" data-key="t-form-select">Videos List</a>
+                                <a href="{{ route('video.list') }}" class="nav-link" data-key="t-form-select">Videos List</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarCms" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarCms">
+                        <i class="mdi mdi-form-select"></i> <span data-key="t-forms">CMS</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarCms">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.contact.us')  }}" class="nav-link" data-key="t-basic-elements">Contact Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.about.us') }}" class="nav-link" data-key="t-form-select">About us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.privacy.policy') }}" class="nav-link" data-key="t-form-select">Privacy Policy</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.terms.condition') }}" class="nav-link" data-key="t-form-select">Terms and Condition</a>
                             </li>
                         </ul>
                     </div>
