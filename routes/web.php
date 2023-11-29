@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\VideoController;
 use App\Http\Controllers\Backend\CmsController;
+use App\Http\Controllers\Backend\CategoriesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +22,8 @@ use App\Http\Controllers\Backend\CmsController;
 Route::get('/', [HomeController::class,'index'])->name('home');
 Route::get('/about-us', [HomeController::class,'AboutUs'])->name('about.us');
 Route::get('/contact-us', [HomeController::class,'ContactUs'])->name('contact.us');
+Route::get('/terms-condition', [HomeController::class,'termsCondition'])->name('terms.condition');
+Route::get('/privacy-policy', [HomeController::class,'privacyPolicy'])->name('privacy.policy');
 Route::prefix('admin')->group(function () {
     // Routes inside this group will have the prefix '/admin' and require 'auth' and 'admin' middleware
     Route::get('/', [AuthController::class,'index'])->name('admin');
@@ -38,6 +41,7 @@ Route::prefix('admin')->group(function () {
         Route::get('contact-us', [CmsController::class,'contactUsPage'])->name('admin.contact.us');
 
         Route::get('about-us', [CmsController::class,'aboutUsPage'])->name('admin.about.us');
+        
 
         Route::get('privacy-policy', [CmsController::class,'privacyPolicyPage'])->name('admin.privacy.policy');
 
@@ -50,6 +54,15 @@ Route::prefix('admin')->group(function () {
         Route::post('about-us', [CmsController::class,'saveAboutUs'])->name('admin.about.us');
         
         Route::post('contact-us', [CmsController::class,'saveContactUs'])->name('admin.contact.us');
+
+
+
+        Route::get('categories', [CategoriesController::class,'index'])->name('admin.categories');
+        Route::get('categories-list', [CategoriesController::class,'categoriesList'])->name('admin.categories.list');
+
+        Route::get('add-category', [CategoriesController::class,'addCategory'])->name('admin.add.category');
+
+        Route::post('save-category', [CategoriesController::class,'saveCategory'])->name('admin.save.categories');
     });
     //Route::post('/login', [AuthController::class,'index'])->name('admin.login');
     // More routes specific to the admin panel

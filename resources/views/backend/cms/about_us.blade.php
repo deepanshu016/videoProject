@@ -34,13 +34,13 @@
                                     </div>
                                 </div>
 
-                                <form action="{{ route('admin.about.us') }}" method="POST" enctype="multipart/form-data" class="upload-video">
+                                <form action="{{ route('admin.about.us') }}" method="POST" enctype="multipart/form-data" class="all-form">
                                     @csrf
                                         <div class="live-preview">
                                             <div class="mb-3">
                                                <label for="videoDescription" class="form-label">About Us Content</label>
-                                               <textarea class="form-control" rows="3" placeholder="About Us Content" name="about_us" id="about_us"></textarea>
-                                               <span class="text-danger" id="about_us"> </span>
+                                               <textarea class="form-control" rows="3" placeholder="About Us Content" name="about_us_content" id="about_us">{{ @$cms->about_us_content }}</textarea>
+                                               <span class="text-danger" id="about_us_content"> </span>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6" style="margin-top: 15px;">

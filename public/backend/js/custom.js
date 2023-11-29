@@ -35,21 +35,20 @@ $(document).on("submit",'.all-form',function(e){
             $('#loader-container').show();
         },
         error: function(xhr){
-            $('#loader-container').hide();
-            var errors = xhr.responseJSON.errors;
-            $.each(errors, function(index, value) {
-                $("#"+index).html(value)
-            });
+           if (xhr.status === 422) {
+                $('#loader-container').hide();
+                var errors = JSON.parse(xhr.responseText);
+                $.each(errors.errors, function(index, value) {
+
+                    $("#" + index).html(value);
+                });
+            } else {
+                console.log("No errors found in response.");
+            }
+            success = false;
         },
         success: function(data){
             $('#loader-container').hide();
-            if(data.status == 'error'){
-                $.each(data.errors, function(key, value) {
-                    $('#' + key).addClass('is-invalid');
-
-                    $('#' + key).html(value);
-                });
-            }
             if(data.status == 'success'){
                 showNotify(data.msg,data.status,data.url);
             }

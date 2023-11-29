@@ -22,14 +22,18 @@ Class AuthController extends Controller {
     // Admin Login
     public function adminLogin(LoginRequest $request){
        try{
-            $email = $request->input('email');
-            $password = sha1($request->input('password'));
-            $userDetails = Admin::where(array('email'=>$email,'password'=>$password))->first();
-            if($userDetails){
-                $request->session()->put('admin',$userDetails);
-                $response = array('status'=>'success','msg'=>'Login Successfull!!','type'=>'success','title'=>'Success','url'=>url('admin/dashboard'));
+            if($request->isAjax()){
+                $email = $request->input('email');
+                $password = sha1($request->input('password'));
+                $userDetails = Admin::where(array('email'=>$email,'password'=>$password))->first();
+                if($userDetails){
+                    $request->session()->put('admin',$userDetails);
+                    $response = array('status'=>'success','msg'=>'Login Successfull!!','type'=>'success','title'=>'Success','url'=>url('admin/dashboard'));
+                }else{
+                    $response = array('status'=>'error','msg'=>'Credentials not matched','type'=>'error','title'=>'Failure');
+                }
             }else{
-                $response = array('status'=>'error','msg'=>'Credentials not matched','type'=>'error','title'=>'Failure');
+                return redirect(url('admin'))->with('error','Not Allowed');
             }
        }catch (Exception $e){
            $response = array('status'=>'error','msg'=>$e->getMessage(),'type'=>'error','title'=>'Failure');

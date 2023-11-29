@@ -1,5 +1,5 @@
 @extends('frontend.includes.layout')
-@section('title','Contact Us')
+@section('title','Privacy Policy')
 @section('content')
     <section class="mt-40">
         <div class="container-fluid">
@@ -7,37 +7,11 @@
                 @include("frontend.includes.categories")
                 <div class="col-xl-8 col-lg-8 col-md-6 col-sm-12">
                     <div class="content-center cl-white">
-                        <div class="row justify-content-center">
-                            <div class="col-xl-5 col-md-12">
-                                <div class="account-form">
-                                    <div class="title">
-                                        <h3>Message us!</h3>
-                                    </div>
-                                    <form action="#">
-                                        <div class="row">
-                                            <div class="col-xl-12">
-                                                <input type="text" placeholder="First Name" required>
-                                            </div>
-                                            <div class="col-xl-12">
-                                                <input type="text" placeholder="Last Name" required>
-                                            </div>
-                                            <div class="col-xl-12">
-                                                <input type="email" placeholder="Email" required>
-                                            </div>
-                                            <div class="col-xl-12">
-                                                <input type="text" placeholder="Phone number" required>
-                                            </div>
-                                            <div class="col-xl-12">
-                                                <textarea name="msg" rows="4" placeholder="Message"></textarea>
-                                            </div>
-                                            <div class="col-xl-12">
-                                                <button type="submit" class="bttn-small btn-fill w-100">Send it</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+                        <div class="section-title">
+                            <h2>Privacy Policy</h2>
                         </div>
+                       
+                        <p>{!! @$cms->privacy_policy_content !!}</p>
                     </div>
                 </div>
                 <div class="col-xl-2 col-lg-2 col-md-3 col-sm-12">
@@ -51,6 +25,7 @@
                             <h3>All time Best</h3>
                         </div>
                         <div class="widget-body p-3 sidebar-cat-height">
+
                             @if(!empty($videoList))
                                 @foreach($videoList as $video)
                                     <a href="" class="video mb-20">
@@ -76,4 +51,4 @@
             </div>
         </div>
     </section>
-@endsection
+    @endsection

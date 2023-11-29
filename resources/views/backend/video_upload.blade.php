@@ -30,7 +30,7 @@
                             <div class="row g-4 mb-3">
                                 <div class="col-sm-auto">
                                     <div>
-                                        <a href="#" class="btn btn-success add-btn" > List</a>
+                                        <a href="{{ route('video.list') }}" class="btn btn-success add-btn" > List</a>
                                     </div>
                                 </div>
 

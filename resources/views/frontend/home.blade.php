@@ -19,13 +19,6 @@
                                         </div>
                                         <div class="text">
                                             <h4>{{ $video->video_title }}</h4>
-                                            <!-- <div class="metas">
-                                                <span><i class="fa fa-user"></i>Robbin</span>
-                                                <span><i class="fa fa-comment"></i>05</span>
-                                                <span><i class="fa fa-eye"></i>23M</span>
-                                                <span><i class="fa fa-thumbs-up"></i>21K</span>
-                                                <span><i class="fa fa-thumbs-down"></i>2.3K</span>
-                                            </div> -->
                                         </div>
                                         <div class="play">
                                             <i class="jam jam-play"></i>
@@ -42,37 +35,15 @@
                         <h2>Best Items</h2>
                     </div>
                     <div class="popular-items owl-carousel">
-                        <a href="single-video.html" class="single-item">
-                            <img src="{{ asset('public/frontend/images/items/1.jpg') }}" alt="">
-                            <h4>Consectetur adipisicing elit <span>21:11</span></h4>
-                            <div class="special-item">New item</div>
-                        </a>
-                        <a href="single-video.html" class="single-item">
-                            <img src="{{ asset('public/frontend/images/items/2.jpg') }}" alt="">
-                            <h4>Ipsum dolor sit amet <span>21:11</span></h4>
-                        </a>
-                        <a href="single-video.html" class="single-item">
-                            <img src="{{ asset('public/frontend/images/items/3.jpg') }}" alt="">
-                            <div class="special-item">New item</div>
-                            <h4>Iusto nesciunt incidunt <span>21:11</span></h4>
-                        </a>
-                        <a href="single-video.html" class="single-item">
-                            <img src="{{ asset('public/frontend/images/items/4.jpg') }}" alt="">
-                            <h4>Hampden Sydney College <span>21:11</span></h4>
-                        </a>
-                        <a href="single-video.html" class="single-item">
-                            <img src="{{ asset('public/frontend/images/items/2.jpg') }}" alt="">
-                            <h4>Ipsum dolor sit amet <span>21:11</span></h4>
-                        </a>
-                        <a href="single-video.html" class="single-item">
-                            <img src="{{ asset('public/frontend/images/items/3.jpg') }}" alt="">
-                            <div class="special-item">New item</div>
-                            <h4>Iusto nesciunt incidunt <span>21:11</span></h4>
-                        </a>
-                        <a href="single-video.html" class="single-item">
-                            <img src="{{ asset('public/frontend/images/items/4.jpg') }}" alt="">
-                            <h4>Hampden Sydney College <span>21:11</span></h4>
-                        </a>
+                        @if(!empty($videoList))
+                            @foreach($videoList as $video)
+                                <a href="#" class="single-item">
+                                    <img src="{{ $video->video_futured_image }}" alt="">
+                                    <h4>{{ $video->video_title }}</h4>
+                                    <div class="special-item">New item</div>
+                                </a>
+                            @endforeach
+                        @endif
                     </div>
                 </div>
                 <div class="main-content-1">
@@ -221,66 +192,25 @@
                         <h3>Weekly Best</h3>
                     </div>
                     <div class="widget-body p-3 sidebar-cat-height">
-                        <a href="" class="video mb-20">
-                            <div class="thumb">
-                                <img src="{{ asset('public/frontend/images/items/5.jpg') }}" alt="">
-                            </div>
-                            <div class="content">
-                                <h4>Ad magnam perspiciatis</h4>
-                                <div class="metas">
-                                    <span><i class="fa fa-user"></i>Robbin</span>
-                                    <span><i class="fa fa-comment"></i>05</span>
-                                    <span><i class="fa fa-eye"></i>23M</span>
-                                    <span><i class="fa fa-thumbs-up"></i>21K</span>
-                                    <span><i class="fa fa-thumbs-down"></i>2.3K</span>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="" class="video mb-20">
-                            <div class="thumb">
-                                <img src="{{ asset('public/frontend/images/items/6.jpg') }}" alt="">
-                            </div>
-                            <div class="content">
-                                <h4>Latin literature from 45</h4>
-                                <div class="metas">
-                                    <span><i class="fa fa-user"></i>Robbin</span>
-                                    <span><i class="fa fa-comment"></i>05</span>
-                                    <span><i class="fa fa-eye"></i>23M</span>
-                                    <span><i class="fa fa-thumbs-up"></i>21K</span>
-                                    <span><i class="fa fa-thumbs-down"></i>2.3K</span>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="" class="video mb-20">
-                            <div class="thumb">
-                                <img src="{{ asset('public/frontend/images/items/7.jpg') }}" alt="">
-                            </div>
-                            <div class="content">
-                                <h4>It is a long established fact that</h4>
-                                <div class="metas">
-                                    <span><i class="fa fa-user"></i>Robbin</span>
-                                    <span><i class="fa fa-comment"></i>05</span>
-                                    <span><i class="fa fa-eye"></i>23M</span>
-                                    <span><i class="fa fa-thumbs-up"></i>21K</span>
-                                    <span><i class="fa fa-thumbs-down"></i>2.3K</span>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="" class="video">
-                            <div class="thumb">
-                                <img src="{{ asset('public/frontend/images/items/8.jpg') }}" alt="">
-                            </div>
-                            <div class="content">
-                                <h4>There are many variations of passages of Lorem</h4>
-                                <div class="metas">
-                                    <span><i class="fa fa-user"></i>Robbin</span>
-                                    <span><i class="fa fa-comment"></i>05</span>
-                                    <span><i class="fa fa-eye"></i>23M</span>
-                                    <span><i class="fa fa-thumbs-up"></i>21K</span>
-                                    <span><i class="fa fa-thumbs-down"></i>2.3K</span>
-                                </div>
-                            </div>
-                        </a>
+                        @if(!empty($videoList))
+                            @foreach($videoList as $video)
+                                <a href="" class="video mb-20">
+                                    <div class="thumb">
+                                        <img src="{{ $video->video_futured_image }}" alt="">
+                                    </div>
+                                    <div class="content">
+                                        <h4>{{ $video->video_title }}</h4>
+                                        <div class="metas">
+                                            <span><i class="fa fa-user"></i>Robbin</span>
+                                            <span><i class="fa fa-comment"></i>05</span>
+                                            <span><i class="fa fa-eye"></i>23M</span>
+                                            <span><i class="fa fa-thumbs-up"></i>21K</span>
+                                            <span><i class="fa fa-thumbs-down"></i>2.3K</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            @endforeach
+                        @endif
                     </div>
                 </div>
                 <div class="web-sidebar-widget mb-40">
@@ -293,66 +223,25 @@
                         <h3>All time Best</h3>
                     </div>
                     <div class="widget-body p-3 sidebar-cat-height">
-                        <a href="" class="video mb-20">
-                            <div class="thumb">
-                                <img src="{{ asset('public/frontend/images/items/5.jpg') }}" alt="">
-                            </div>
-                            <div class="content">
-                                <h4>Ad magnam perspiciatis</h4>
-                                <div class="metas">
-                                    <span><i class="fa fa-user"></i>Robbin</span>
-                                    <span><i class="fa fa-comment"></i>05</span>
-                                    <span><i class="fa fa-eye"></i>23M</span>
-                                    <span><i class="fa fa-thumbs-up"></i>21K</span>
-                                    <span><i class="fa fa-thumbs-down"></i>2.3K</span>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="" class="video mb-20">
-                            <div class="thumb">
-                                <img src="{{ asset('public/frontend/images/items/6.jpg') }}" alt="">
-                            </div>
-                            <div class="content">
-                                <h4>Latin literature from 45</h4>
-                                <div class="metas">
-                                    <span><i class="fa fa-user"></i>Robbin</span>
-                                    <span><i class="fa fa-comment"></i>05</span>
-                                    <span><i class="fa fa-eye"></i>23M</span>
-                                    <span><i class="fa fa-thumbs-up"></i>21K</span>
-                                    <span><i class="fa fa-thumbs-down"></i>2.3K</span>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="" class="video mb-20">
-                            <div class="thumb">
-                                <img src="{{ asset('public/frontend/images/items/7.jpg') }}" alt="">
-                            </div>
-                            <div class="content">
-                                <h4>It is a long established fact that</h4>
-                                <div class="metas">
-                                    <span><i class="fa fa-user"></i>Robbin</span>
-                                    <span><i class="fa fa-comment"></i>05</span>
-                                    <span><i class="fa fa-eye"></i>23M</span>
-                                    <span><i class="fa fa-thumbs-up"></i>21K</span>
-                                    <span><i class="fa fa-thumbs-down"></i>2.3K</span>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="" class="video">
-                            <div class="thumb">
-                                <img src="{{ asset('public/frontend/images/items/8.jpg') }}" alt="">
-                            </div>
-                            <div class="content">
-                                <h4>There are many variations of passages of Lorem</h4>
-                                <div class="metas">
-                                    <span><i class="fa fa-user"></i>Robbin</span>
-                                    <span><i class="fa fa-comment"></i>05</span>
-                                    <span><i class="fa fa-eye"></i>23M</span>
-                                    <span><i class="fa fa-thumbs-up"></i>21K</span>
-                                    <span><i class="fa fa-thumbs-down"></i>2.3K</span>
-                                </div>
-                            </div>
-                        </a>
+                         @if(!empty($videoList))
+                            @foreach($videoList as $videos)
+                                <a href="" class="video mb-20">
+                                    <div class="thumb">
+                                        <img src="{{ $videos->video_futured_image }}" alt="">
+                                    </div>
+                                    <div class="content">
+                                        <h4>{{ $videos->video_title }}</h4>
+                                        <div class="metas">
+                                            <span><i class="fa fa-user"></i>Robbin</span>
+                                            <span><i class="fa fa-comment"></i>05</span>
+                                            <span><i class="fa fa-eye"></i>23M</span>
+                                            <span><i class="fa fa-thumbs-up"></i>21K</span>
+                                            <span><i class="fa fa-thumbs-down"></i>2.3K</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            @endforeach
+                        @endif
                     </div>
                 </div>
             </div>

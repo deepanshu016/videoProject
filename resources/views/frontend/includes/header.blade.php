@@ -8,13 +8,11 @@
                 <form action="#">
                     <input type="text" placeholder="Search Video..." required>
                     <select name="category">
-                        <option value="">Category</option>
-                        <option value="">Trending Topic</option>
-                        <option value="">Awesome Ideas</option>
-                        <option value="">Natural Beauty</option>
-                        <option value="">Inhouse</option>
-                        <option value="">Outside of wall</option>
-                        <option value="">In a hill</option>
+                        @if(!empty($categories))
+                            @foreach($categories as $category)
+                                 <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                            @endforeach
+                        @endif
                     </select>
                     <button type="submit"><i class="fa fa-search"></i></button>
                 </form>
@@ -22,7 +20,7 @@
             <ul style="display: flex;">
                 <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('about.us') }}">About Us</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Terms & Privacy</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('terms.condition') }}">Terms & Conditions</a></li>
                
             </ul>
             <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,13 +32,11 @@
                     <form action="#">
                         <input type="text" placeholder="Search Video..." required>
                         <select name="category">
-                            <option value="">Category</option>
-                            <option value="">Trending Topic</option>
-                            <option value="">Awesome Ideas</option>
-                            <option value="">Natural Beauty</option>
-                            <option value="">Inhouse</option>
-                            <option value="">Outside of wall</option>
-                            <option value="">In a hill</option>
+                            @if(!empty($categories))
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                @endforeach
+                            @endif
                         </select>
                         <button type="submit"><i class="fa fa-search"></i></button>
                     </form>

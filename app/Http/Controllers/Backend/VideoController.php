@@ -188,8 +188,6 @@ Class VideoController extends Controller {
                         ->rawColumns(['action','category','video_type','live_video','featured_image'])
                         ->make();
             }
-        
-        return view('users');
             // return response()->json(array('status'=> 'success','msg'=>'Video uploaded successfully','data'=>$videoList)); 
        }catch(Exception $e){
             \Log::debug($e->getMessage());

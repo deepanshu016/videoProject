@@ -1,5 +1,5 @@
 @extends('backend.includes.layout')
-@section('title','Admin panel | Upload Video')
+@section('title','Admin panel | Categories')
 @section('content')
 <div class="page-content">
     <div class="container-fluid">
@@ -10,7 +10,7 @@
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Terms & Condition</li>
+                            <li class="breadcrumb-item active">Add Categories</li>
                         </ol>
                     </div>
 
@@ -22,7 +22,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title mb-0">Terms & Condition</h4>
+                        <h4 class="card-title mb-0">Add Categories</h4>
                     </div>
                     <!-- end card header -->
                     <div class="card-body">
@@ -30,17 +30,22 @@
                             <div class="row g-4 mb-3">
                                 <div class="col-sm-auto">
                                     <div>
-                                        <a href="#" class="btn btn-success add-btn" > List</a>
+                                        <a href="{{ route('admin.categories') }}" class="btn btn-success add-btn" > List</a>
                                     </div>
                                 </div>
-
-                                <form action="{{ route('admin.terms.condition') }}" method="POST"  class="all-form">
+                                <form action="{{ route('admin.save.categories') }}" method="POST" enctype="multipart/form-data" class="all-form">
                                     @csrf
                                         <div class="live-preview">
                                             <div class="mb-3">
-                                               <label for="videoDescription" class="form-label">Terms & Condition Content</label>
-                                               <textarea class="form-control" rows="3" placeholder="Terms & Condition Content" name="terms_conditions_content" id="terms_condition">{{ @$cms->terms_conditions_content }}</textarea>
-                                               <span class="text-danger" id="terms_conditions_content"> </span>
+                                               <label for="videoDescription" class="form-label">Category Name</label>
+                                               <input type="text" class="form-control" placeholder="Category Name" value="{{ @$singleCategory->category_name }}" name="category_name">
+                                               <input type="hidden" class="form-control" placeholder="Category Name" value="{{ @$singleCategory->id }}" name="category_id">
+                                               <span class="text-danger" id="category_name"> </span>
+                                            </div>
+                                            <div class="mb-3">
+                                               <label for="videoDescription" class="form-label">Description</label>
+                                               <textarea class="form-control" rows="3" placeholder="Description" name="Description">{{ @$singleCategory->description }}</textarea>
+                                               <span class="text-danger" id="description"> </span>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6" style="margin-top: 15px;">

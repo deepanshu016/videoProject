@@ -34,13 +34,13 @@
                                     </div>
                                 </div>
 
-                                <form action="{{ route('admin.privacy.policy') }}" method="POST" enctype="multipart/form-data" class="upload-video">
+                                <form action="{{ route('admin.privacy.policy') }}" method="POST"  class="all-form">
                                     @csrf
                                         <div class="live-preview">
                                             <div class="mb-3">
                                                <label for="videoDescription" class="form-label">Privacy Policy Content</label>
-                                               <textarea class="form-control" rows="3" placeholder="Privacy Policy Content" name="privacy_policy" id="privacy_policies"></textarea>
-                                               <span class="text-danger" id="privacy_policy"> </span>
+                                               <textarea class="form-control" rows="3" placeholder="Privacy Policy Content" name="privacy_and_policy" id="privacy_policys">{{ @$cms->privacy_policy_content }}</textarea>
+                                               <span class="text-danger" id="privacy_and_policy"> </span>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6" style="margin-top: 15px;">
