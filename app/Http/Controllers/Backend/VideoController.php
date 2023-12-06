@@ -26,13 +26,13 @@ Class VideoController extends Controller {
     // Upload Videos
     public function videoUpload(VideoUploadRequest $request)
     {
-       
+
         try{
             $video = new Video();
 
             if($request->video_type == 1){
-                
-                // $imageName = time().'.'.$request->video->extension();  
+
+                // $imageName = time().'.'.$request->video->extension();
                 // $path = Storage::disk('s3')->put('videos', $request->video);
                 // $path = Storage::disk('s3')->url($path);
                 $file = $request->file('video');
@@ -65,24 +65,26 @@ Class VideoController extends Controller {
             $video->category_id = 1;
             $video->video_type = $request->video_type;
             $video->video_title = $request->video_title;
+            $video->slug = $this->slug($request->video_title);
+            $video->price = $request->price;
             $video->time_for_live = $request->time_for_live;
-            $video->add_tags = $request->add_tags;
+            $video->add_tags = ($request->add_tags) ? $request->add_tags : '';
             $video->trending_topic = $request->trending_topic;
             $video->video_description = $request->video_description;
             $video->save();
             if($video->id){
-                return response()->json(array('status'=> 'success','msg'=>'Video uploaded successfully','url'=>url('admin/video-upload'))); 
+                return response()->json(array('status'=> 'success','msg'=>'Video uploaded successfully','url'=>url('admin/video-upload')));
             }
-            return response()->json(array('status'=> 'error','msg'=>'Something went wrong','url'=>'')); 
-          
+            return response()->json(array('status'=> 'error','msg'=>'Something went wrong','url'=>''));
+
         }catch(Exception $e){
             \Log::debug($e->getMessage());
-            return response()->json(array('status'=> 'error','msg'=>$e->getMessage(),'url'=>'')); 
+            return response()->json(array('status'=> 'error','msg'=>$e->getMessage(),'url'=>''));
         }
 
     }
 
- 
+
     public function upload(Request $request)
     {
         $file = $request->file('video');
@@ -138,7 +140,7 @@ Class VideoController extends Controller {
                 'UploadId' => $uploadId,
                 'MultipartUpload' => ['Parts' => $parts],
             ]);
-            
+
             return response()->json(['success' => true], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
@@ -147,7 +149,7 @@ Class VideoController extends Controller {
     public function videoList(Request $request)
     {
        try{
-            
+
             if ($request->ajax()) {
                 $videoList = Video::with('category')->orderBy('video_id','DESC')->get();
                 return Datatables::of($videoList)
@@ -181,17 +183,62 @@ Class VideoController extends Controller {
                         })
                         ->addColumn('action', function($row){
                             $btn = '';
-                            $btn .= '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">Edit</a>';
-                            $btn .= '<a href="javascript:void(0)" class="edit btn btn-danger btn-sm">Delete</a>';
+                            $btn .= '<a href="'.route('video.edit',['video_id'=>$row->video_id,'video_slug'=>$row->slug]).'" class="edit btn btn-primary btn-sm">Edit</a>';
+                            $btn .= '<a href="javascript:void(0)" class="delete-data btn btn-danger btn-sm" data-id="'.$row['video_id'].'" url="'.route('delete.video').'">Delete</a>';
                             return $btn;
                         })
                         ->rawColumns(['action','category','video_type','live_video','featured_image'])
                         ->make();
             }
-            // return response()->json(array('status'=> 'success','msg'=>'Video uploaded successfully','data'=>$videoList)); 
-       }catch(Exception $e){
+            // return response()->json(array('status'=> 'success','msg'=>'Video uploaded successfully','data'=>$videoList));
+        }catch(Exception $e){
             \Log::debug($e->getMessage());
-            return response()->json(array('status'=> 'error','msg'=>$e->getMessage(),'url'=>'')); 
+            return response()->json(array('status'=> 'error','msg'=>$e->getMessage(),'url'=>''));
+        }
+    }
+
+    public function slug($string, $spaceRepl = "-"){
+        $string = str_replace("&", "and", $string);
+
+        $string = preg_replace("/[^a-zA-Z0-9 _-]/", "", $string);
+
+        $string = strtolower($string);
+
+        $string = preg_replace("/[ ]+/", " ", $string);
+
+        $string = str_replace(" ", $spaceRepl, $string);
+
+        return $string.'-'.sha1($string);
+    }
+
+
+    public function editVideo(Request $request, $video_id, $video_slug = '') {
+        $categories = Category::all();
+        $singleVideo = Video::where('video_id', $video_id)->first();
+        if (!$singleVideo) {
+            abort(404);
+        }
+        return view('backend.video_upload',compact('singleVideo','categories'));
+    }
+
+
+    public function deleteVideo(Request $request){
+        try{
+            $id = $request->id;
+            if ($request->ajax()) {
+                $result = Video::where('video_id',$id)->delete();
+                if($result > 0){
+                    return response()->json(array('status' => 'success','message' => 'Video deleted successfully','url'=>url('admin/video-list')));
+                }else{
+                    return response()->json(array('status' => 'errors','message' => 'Something went wrong !!!','url'=>''));
+                }
+                return response()->json($response);
+            }else{
+               return redirect(url('admin'))->with('error','Access  not allowed');    
+            }
+        }catch(Exception $e){
+            \Log::debug($e->getMessage());
+            return response()->json(array('status'=> 'error','msg'=>$e->getMessage(),'url'=>''));
         }
     }
 }

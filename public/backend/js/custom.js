@@ -141,7 +141,46 @@ $(document).on("submit",'.upload-video',function(e){
 });
 
 
-
+$(document).on('click','.delete-data', function (e) {
+    e.preventDefault();
+    var id = $(this).data('id');
+    var url = $(this).attr('url');
+    Swal.fire({
+        title: "Are you sure ?",
+        text: "You want to delete some data",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+        closeOnConfirm: true,
+        closeOnCancel: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+                type: "POST",
+                url: url,
+                data:{id:id},
+                dataType: 'json',
+                success: function(data){
+                    if(data.status == 'success'){
+                        showNotify(data.message,data.status,data.url);
+                    }
+                    if(data.status == 'errors'){
+                        showNotify(data.message,data.status,data.url);
+                    }
+                }
+        }); 
+      } else if (result.isDenied) {
+       showNotify('Action Cancelled','error','');
+      }
+    }); 
+});
 
 $(document).on("change",".switch-video-type",function(e){
    const type = $(this).val();

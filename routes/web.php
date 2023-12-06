@@ -24,8 +24,9 @@ Route::get('/about-us', [HomeController::class,'AboutUs'])->name('about.us');
 Route::get('/contact-us', [HomeController::class,'ContactUs'])->name('contact.us');
 Route::get('/terms-condition', [HomeController::class,'termsCondition'])->name('terms.condition');
 Route::get('/privacy-policy', [HomeController::class,'privacyPolicy'])->name('privacy.policy');
+Route::get('/videos/{category_id?}/{category_slug?}', [HomeController::class,'videosList'])->name('videos.list');
+Route::get('/video/{video_id?}/{video_slug?}/', [HomeController::class,'singleVideo'])->name('video');
 Route::prefix('admin')->group(function () {
-    // Routes inside this group will have the prefix '/admin' and require 'auth' and 'admin' middleware
     Route::get('/', [AuthController::class,'index'])->name('admin');
     Route::post('/login', [AuthController::class,'adminLogin'])->name('admin.login');
     Route::middleware('is_login')->group(function () {
@@ -34,14 +35,17 @@ Route::prefix('admin')->group(function () {
         Route::post('video-upload', [ VideoController::class, 'videoUpload' ])->name('video.upload');
         Route::get('video-list', [ VideoController::class, 'list' ])->name('video.list');
         Route::get('video-lists', [ VideoController::class, 'videoList' ])->name('video.lists');
+        Route::get('edit-video/{video_id?}/{video_slug?}/', [ VideoController::class, 'editVideo' ])->name('video.edit');
+        Route::post('delete-video', [ VideoController::class, 'deleteVideo' ])->name('delete.video');
+
+
+
         Route::get('logout', [ AuthController::class, 'logout' ])->name('logout');
-
-
 
         Route::get('contact-us', [CmsController::class,'contactUsPage'])->name('admin.contact.us');
 
         Route::get('about-us', [CmsController::class,'aboutUsPage'])->name('admin.about.us');
-        
+
 
         Route::get('privacy-policy', [CmsController::class,'privacyPolicyPage'])->name('admin.privacy.policy');
 
@@ -52,7 +56,7 @@ Route::prefix('admin')->group(function () {
         Route::post('privacy-policy', [CmsController::class,'savePrivacyPolicy'])->name('admin.privacy.policy');
 
         Route::post('about-us', [CmsController::class,'saveAboutUs'])->name('admin.about.us');
-        
+
         Route::post('contact-us', [CmsController::class,'saveContactUs'])->name('admin.contact.us');
 
 

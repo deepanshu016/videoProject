@@ -22,7 +22,7 @@ Class AuthController extends Controller {
     // Admin Login
     public function adminLogin(LoginRequest $request){
        try{
-            if($request->isAjax()){
+            if($request->ajax()){
                 $email = $request->input('email');
                 $password = sha1($request->input('password'));
                 $userDetails = Admin::where(array('email'=>$email,'password'=>$password))->first();

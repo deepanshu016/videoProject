@@ -32,7 +32,21 @@
     <link href="{{ asset('public/backend/css/toastr.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('public/backend/tagsinput/css/magic.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('public/backend/tagsinput/css/magicsuggest.css') }}" rel="stylesheet" type="text/css" />
+   <link href="{{ asset('public/backend/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+
     <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+    <style>
+        tags{
+            width: 100%;
+            border: 1px solid #ced4da;
+        }
+        .tags{
+            width: 100%;
+            border: none;
+            padding: 5px;
+            display:none;
+        }
+    </style>
 </head>
 
 <body>
@@ -700,14 +714,13 @@
     <script src="{{ asset('public/backend/js/app.js') }}"></script>
     <script src="{{ asset('public/backend/js/custom.js') }}"></script>
     <script src="{{ asset('public/backend/js/toastr.js') }}"></script>
-    <script src="{{ asset('public/backend/tagsinput/js/magic.js') }}"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
+    <script src="{{ asset('public/backend/libs/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
+    <script src="{{ asset('public/backend/tagsinput/js/magic.js') }}"></script>
     @yield('page_script')
     <script type="text/javascript">
         $("textarea").each(function () {

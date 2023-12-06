@@ -17,18 +17,12 @@
     <link href="{{ asset('public/frontend/css/owl.carousel.min.css') }}" rel="stylesheet">
     <!-- Main css -->
     <link href="{{ asset('public/frontend/css/main.css') }}" rel="stylesheet">
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
+    @stack('styles')
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
 <body>
-    <div class="preloader">
-        <img src="{{ asset('public/frontend/images/preloader.png') }}" alt="">
-        <p>Loading..</p>
-    </div>
     @include('frontend.includes.header')
     @yield('content')
     @include("frontend.includes.footer")
@@ -54,7 +48,15 @@
     <script src="{{ asset('public/frontend/js/scrollUp.min.js') }}"></script>
     <script src="{{ asset('public/frontend/js/jquery.accrue.min.js') }}"></script>
     <script src="{{ asset('public/frontend/js/jquery.nice-select.min.js') }}"></script>
-
+    <script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
     <script src="{{ asset('public/frontend/js/script.js') }}"></script>
+    <script type="text/javascript">
+        $("textarea").each(function () {
+            CKEDITOR.replace('fees_description');
+            let id = $(this).attr('id');
+            CKEDITOR.replace(id);
+        });
+    </script>
+    @stack('scripts')
 </body>
 </html>

@@ -21,5 +21,14 @@ class Video extends Model
     public function getVideoFuturedImageAttribute($value){
     	$value = asset('public').'/'.$value;
     	return $value;
-    }	
+    }
+
+    public function getAddTagsAttribute($value){
+        if($value){
+            $value =  explode(',',$value);
+        }else{
+            $value = [];
+        }
+    	return $value;
+    }
 }

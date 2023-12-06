@@ -43,7 +43,7 @@
                                                  <option value="">-----Select----</option>
                                                 @if(!empty($categories))
                                                     @foreach($categories as $cateogry)
-                                                          <option value="{{ $cateogry->id }}">{{ $cateogry->category_name }}</option>
+                                                          <option value="{{ $cateogry->id }}" @if(!empty($singleVideo) && $singleVideo->category_id == $cateogry->id) selected @endif>{{ $cateogry->category_name }}</option>
                                                     @endforeach
                                                 @endif
                                                </select>
@@ -53,30 +53,55 @@
                                                <label for="videoType" class="form-label">Video Type</label>
                                                <select class="form-control switch-video-type" aria-label="Default select example" name="video_type">
                                                   <option value="">-----Select----</option>
-                                                  <option value="1">Upload Video</option>
-                                                  <option value="2">URL</option>
+                                                  <option value="1" @if(!empty($singleVideo) && $singleVideo->video_type == '1') selected @endif>Upload Video</option>
+                                                  <option value="2" @if(!empty($singleVideo) && $singleVideo->video_type == '2') selected @endif>URL</option>
                                                </select>
                                                 <span class="text-danger" id="video_type"> </span>
                                             </div>
-                                            <div class="mb-3 upload_video" style="display: none;">
-                                               <label for="uploadVideo" class="form-label">Upload Video</label>
-                                               <input type="file" class="form-control" id="uploadVideo" name="video">
-                                               <span class="text-danger" id="video"> </span>
-                                            </div>
-                                            <div class="mb-3 uplaod_video_url" style="display: none;">
-                                               <label for="videoEmbededCode" class="form-label">Video URL</label>
-                                               <input type="text" class="form-control" id="videoEmbededCode" placeholder="Video URL" name="video_url">
-                                               <span class="text-danger" id="video_url"> </span>
-                                            </div>
-                                            <div class="mb-3">
-                                               <label for="videoTitle" class="form-label">Video Title</label>
-                                               <input type="text" class="form-control" id="videoTitle" placeholder="Enter video title" name="video_title">
-                                               <span class="text-danger" id="video_title"> </span>
-                                            </div>
+                                            @if(!empty($singleVideo) && $singleVideo->video_type == '1')
+                                              <div class="mb-3 upload_video">
+                                                 <label for="uploadVideo" class="form-label">Upload Video</label>
+                                                 <input type="file" class="form-control" id="uploadVideo" name="video">
+                                                 <span class="text-danger" id="video"> </span>
+                                                  <video width="320" height="240" controls>
+                                                    <source src="{{ $singleVideo->upload_video }}" type="video/mp4">
+                                                  </video>
+                                              </div>
+                                            @else
+                                              <div class="mb-3 upload_video" style="display: none;">
+                                                 <label for="uploadVideo" class="form-label">Upload Video</label>
+                                                 <input type="file" class="form-control" id="uploadVideo" name="video">
+                                                 <span class="text-danger" id="video"> </span>
+                                              </div>
+                                            @endif
+                                            @if(!empty($singleVideo) && $singleVideo->video_type == '2')
+                                              <div class="mb-3 uplaod_video_url">
+                                                 <label for="videoEmbededCode" class="form-label">Video URL</label>
+                                                 <input type="text" class="form-control" id="videoEmbededCode" placeholder="Video URL" name="video_url" value="@if(!empty($singleVideo)) {{ $singleVideo->video_embeded_code }} @endif">
+                                                 <span class="text-danger" id="video_url"> </span>
+                                              </div>
+                                            @else
+                                              <div class="mb-3 uplaod_video_url" style="display: none;">
+                                                 <label for="videoEmbededCode" class="form-label">Video URL</label>
+                                                 <input type="text" class="form-control" id="videoEmbededCode" placeholder="Video URL" name="video_url" value="@if(!empty($singleVideo)) {{ $singleVideo->video_embeded_code }} @endif">
+                                                 <span class="text-danger" id="video_url"> </span>
+                                              </div>
+                                            @endif
                                             
                                             <div class="mb-3">
+                                               <label for="videoTitle" class="form-label">Video Title</label>
+                                               <input type="text" class="form-control" id="videoTitle" placeholder="Enter video title" name="video_title" value="@if(!empty($singleVideo)) {{ $singleVideo->video_title }} @endif">
+                                               <span class="text-danger" id="video_title"> </span>
+                                            </div> 
+                                            <div class="mb-3">
+                                               <label for="videoTitle" class="form-label">Video Price</label>
+                                               <input type="text" class="form-control" id="prices" placeholder="Enter video Price" name="price" value="@if(!empty($singleVideo)) {{ $singleVideo->price }} @endif">
+                                               <span class="text-danger" id="price"> </span>
+                                            </div>
+
+                                            <div class="mb-3">
                                                <label for="timeForLive" class="form-label">Time For live</label>
-                                               <input type="datetime-local" class="form-control" id="timeForLive">
+                                               <input type="datetime-local" class="form-control" id="timeForLive" value="@if(!empty($singleVideo)) {{ $singleVideo->time_for_live }} @endif">
                                             </div>
                                             <div class="mb-3">
                                                <label for="videoFuturedImage" class="form-label">Choose File (for Upload Video and Video Futured Image)</label>
@@ -97,22 +122,24 @@
                                                         <div class="progress-bar bg-secondary" role="progressbar" style="width: 0%;" id="progressBar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                                                     </div>
                                                 </div>
-
+                                                @if(!empty($singleVideo))
+                                                    <img src="{{ $singleVideo->video_futured_image }}" height="100" width="100">
+                                                @endif
                                             </div>
                                             <div class="mb-3">
                                                <label for="addTags" class="form-label">Add Tags</label>
-                                               <input type="text" class="form-control tags" id="addTags" placeholder="Enter tags" name="video_tags">
+                                               <input type="text" class="form-control tags" id="addTags" placeholder="Enter tags" name="video_tags[]">
                                                <span class="text-danger" id="video_tags"> </span>
                                             </div>
                                             <div class="mb-3">
                                                <label for="trendingTopic" class="form-label">Trending Topic</label>
-                                               <input type="text" class="form-control" id="trendingTopic" placeholder="Enter trending topic" name="trending_topics">
+                                               <input type="text" class="form-control" id="trendingTopic" placeholder="Enter trending topic" name="trending_topics" value="@if(!empty($singleVideo)) {{ $singleVideo->trending_topic }} @endif">
                                                <span class="text-danger" id="trending_topics"> </span>
                                             </div>
-                                            
+
                                             <div class="mb-3">
                                                <label for="videoDescription" class="form-label">Video Description</label>
-                                               <textarea class="form-control" id="videoDescription" rows="3" placeholder="Enter video description" name="video_description"></textarea>
+                                               <textarea class="form-control" id="videoDescription" rows="3" placeholder="Enter video description" name="video_description">@if(!empty($singleVideo)) {!! $singleVideo->video_description !!} @endif</textarea>
                                                <span class="text-danger" id="video_description"> </span>
                                             </div>
                                             <div class="row">
@@ -139,9 +166,7 @@
 @section('page_script')
 <script type="text/javascript">
   $(function () {
- 
-     $('.tags').tagify();
-    
+     $('#addTags').tagify();
   });
 </script>
 @endsection
