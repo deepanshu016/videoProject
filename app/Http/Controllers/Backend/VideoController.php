@@ -26,9 +26,13 @@ Class VideoController extends Controller {
     // Upload Videos
     public function videoUpload(VideoUploadRequest $request)
     {
-
+       
         try{
-            $video = new Video();
+            if($request->video_id){
+                $video = Video::where('video_id',$request->video_id)->first();
+            }else{
+                $video = new Video();
+            }
 
             if($request->video_type == 1){
 
@@ -68,12 +72,13 @@ Class VideoController extends Controller {
             $video->slug = $this->slug($request->video_title);
             $video->price = $request->price;
             $video->time_for_live = $request->time_for_live;
-            $video->add_tags = ($request->add_tags) ? $request->add_tags : '';
-            $video->trending_topic = $request->trending_topic;
+            $video->add_tags = !empty($request->video_tags) ? $request->video_tags : '';
+            $video->trending_topic = $request->trending_topics;
             $video->video_description = $request->video_description;
+              
             $video->save();
-            if($video->id){
-                return response()->json(array('status'=> 'success','msg'=>'Video uploaded successfully','url'=>url('admin/video-upload')));
+            if($video->video_id){
+                return response()->json(array('status'=> 'success','msg'=>'Video uploaded successfully','url'=>url('admin/video-list')));
             }
             return response()->json(array('status'=> 'error','msg'=>'Something went wrong','url'=>''));
 
@@ -151,7 +156,7 @@ Class VideoController extends Controller {
        try{
 
             if ($request->ajax()) {
-                $videoList = Video::with('category')->orderBy('video_id','DESC')->get();
+                $videoList = Video::with('category')->get();
                 return Datatables::of($videoList)
                         ->addIndexColumn()
                         ->editColumn('category', function($row){
@@ -184,7 +189,7 @@ Class VideoController extends Controller {
                         ->addColumn('action', function($row){
                             $btn = '';
                             $btn .= '<a href="'.route('video.edit',['video_id'=>$row->video_id,'video_slug'=>$row->slug]).'" class="edit btn btn-primary btn-sm">Edit</a>';
-                            $btn .= '<a href="javascript:void(0)" class="delete-data btn btn-danger btn-sm" data-id="'.$row['video_id'].'" url="'.route('delete.video').'">Delete</a>';
+                            $btn .= '<a href="javascript:void(0)" class="delete-data btn btn-danger btn-sm" data-id="'.$row->video_id.'" url="'.route('delete.video').'">Delete</a>';
                             return $btn;
                         })
                         ->rawColumns(['action','category','video_type','live_video','featured_image'])

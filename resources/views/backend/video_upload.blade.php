@@ -78,6 +78,7 @@
                                               <div class="mb-3 uplaod_video_url">
                                                  <label for="videoEmbededCode" class="form-label">Video URL</label>
                                                  <input type="text" class="form-control" id="videoEmbededCode" placeholder="Video URL" name="video_url" value="@if(!empty($singleVideo)) {{ $singleVideo->video_embeded_code }} @endif">
+                                                 <input type="hidden" class="form-control" name="video_id" value="@if(!empty($singleVideo)) {{ $singleVideo->video_id }} @endif">
                                                  <span class="text-danger" id="video_url"> </span>
                                               </div>
                                             @else
@@ -127,8 +128,8 @@
                                                 @endif
                                             </div>
                                             <div class="mb-3">
-                                               <label for="addTags" class="form-label">Add Tags</label>
-                                               <input type="text" class="form-control tags" id="addTags" placeholder="Enter tags" name="video_tags[]">
+                                               <label for="addTags" class="form-label">Add Tags<br/><small style="color: red;">(Please add tags comma separated)</small></label>
+                                               <input type="text" class="form-control"  placeholder="Enter tags" name="video_tags" value="{!! $singleVideo->add_tags !!}">
                                                <span class="text-danger" id="video_tags"> </span>
                                             </div>
                                             <div class="mb-3">

@@ -6,7 +6,7 @@ use App\Models\Category;
 class Video extends Model
 {
 	protected $table = 'tbl_videos';
-
+    protected $primaryKey = 'video_id';
 	protected $fillable = ['category_id','video_type','video_title','time_for_live','video_futured_image','add_tags','trending_topic','video_description','video_embeded_code'];
 
 	protected $guarded = ['upload_video','time_for_live','add_tags','video_embeded_code'];
@@ -23,12 +23,12 @@ class Video extends Model
     	return $value;
     }
 
-    public function getAddTagsAttribute($value){
-        if($value){
-            $value =  explode(',',$value);
-        }else{
-            $value = [];
-        }
-    	return $value;
-    }
+    // public function getAddTagsAttribute($value){
+    //     // if($value){
+    //     //     $value =  explode(',',$value);
+    //     // }else{
+    //     //     $value = [];
+    //     // }
+    // 	return $value;
+    // }
 }

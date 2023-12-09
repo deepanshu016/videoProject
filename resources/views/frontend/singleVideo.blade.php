@@ -15,6 +15,7 @@
                             <h2 class="video-title">{{ $singleVideo->video_title }}</h2>
                             <div class="video-player-content">
                                 <video id="player" controls crossorigin playsinline></video>
+                                <button class="play_video">Play Video</button>
                                 <div class="video-player-content-btn text-left">
                                     <a href="" class="bttn-small btn-fill"><i class="fa fa-user"></i>Robbin</a>
                                     <a href="" class="bttn-small btn-fill"><i class="fa fa-eye"></i>24M</a>
@@ -94,47 +95,81 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <script>
         const player = new Plyr('#player');
-        window.onload  = () => {
-            const videoType = "{{ $singleVideo->video_type }}";
-            if(videoType === '2'){
-                loadVideo('youtube', "{{ $singleVideo->video_embeded_code }}");
-            }else{
-                loadVideo('s3_bucket', "{{ $singleVideo->upload_video }}");
-            }
-            const videoElement = document.getElementById('player'); // Replace 'player' with your video element's ID
+        const video_type = "{{ $singleVideo->video_type }}";
+        const video_url = video_type ===  '2' ? "{{ $singleVideo->video_embeded_code }}" : "{{ $singleVideo->upload_video }}";
+        const video_platform = video_type ===  '2' ? "youtube" : "s3_bucket";
 
+        // window.onload  = () => {
+        //     const videoType = "{{ $singleVideo->video_type }}";
+        //     if(videoType === '2'){
+        //         loadVideo('youtube', "{{ $singleVideo->video_embeded_code }}");
+        //     }else{
+        //         loadVideo('s3_bucket', "{{ $singleVideo->upload_video }}");
+        //     }
+            // const videoElement = document.getElementById('player'); // Replace 'player' with your video element's ID
+
+            // videoElement.addEventListener('loadedmetadata', async () => {
+            //     try {
+            //         await videoElement.requestPictureInPicture();
+            //     } catch (error) {
+            //         console.error('Error requesting Picture-in-Picture:', error);
+            //     }
+            // });
+        // }
+        $(".play_video").click(function(e){
+            const videoElement = document.getElementById('player');
             videoElement.addEventListener('loadedmetadata', async () => {
                 try {
                     await videoElement.requestPictureInPicture();
-                    // Picture-in-Picture mode has been requested successfully
                 } catch (error) {
-                    // Handle errors if requestPictureInPicture fails
                     console.error('Error requesting Picture-in-Picture:', error);
                 }
             });
-        }
-        function loadVideo(videoType, videoUrl) {
-            if (videoType === 'youtube') {
+            e.preventDefault();
+            if (video_platform === 'youtube') {
                 player.source = {
                     type: 'video',
                     sources: [
                         {
-                            src: videoUrl,
+                            src: video_url,
                             provider: 'youtube',
                         },
                     ],
                 };
-            }else if (videoType === 's3_bucket') {
+            }else if (video_platform === 's3_bucket') {
                 player.source = {
                     type: 'video',
                     sources: [
                         {
-                            src: videoUrl,
+                            src: video_url,
                             type: 'video/mp4',
                         },
                     ],
                 };
             }
-        }
+        })
+        // function loadVideo(videoType, videoUrl) {
+        //     if (videoType === 'youtube') {
+        //         player.source = {
+        //             type: 'video',
+        //             sources: [
+        //                 {
+        //                     src: videoUrl,
+        //                     provider: 'youtube',
+        //                 },
+        //             ],
+        //         };
+        //     }else if (videoType === 's3_bucket') {
+        //         player.source = {
+        //             type: 'video',
+        //             sources: [
+        //                 {
+        //                     src: videoUrl,
+        //                     type: 'video/mp4',
+        //                 },
+        //             ],
+        //         };
+        //     }
+        // }
     </script>
 @endpush
