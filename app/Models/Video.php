@@ -23,12 +23,12 @@ class Video extends Model
     	return $value;
     }
 
-    // public function getAddTagsAttribute($value){
-    //     // if($value){
-    //     //     $value =  explode(',',$value);
-    //     // }else{
-    //     //     $value = [];
-    //     // }
-    // 	return $value;
-    // }
+    public function getAddTagsAttribute($value){
+        if($value){
+            $value =  explode(',',$value);
+        }else{
+            $value = [];
+        }
+    	return $value;
+    }
 }

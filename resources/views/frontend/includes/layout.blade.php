@@ -7,6 +7,8 @@
     <link rel="shortcut icon" href="{{ asset('public/frontend/images/favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ asset('public/frontend/images/favicon.ico') }}" type="image/x-icon">
     <title>@yield('title')</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}"> <!-- CSRF token meta tag -->
+
     <!-- Bootstrap -->
     <link href="{{ asset('public/frontend/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('public/frontend/css/font-awesome.min.css') }}" rel="stylesheet">
@@ -17,6 +19,8 @@
     <link href="{{ asset('public/frontend/css/owl.carousel.min.css') }}" rel="stylesheet">
     <!-- Main css -->
     <link href="{{ asset('public/frontend/css/main.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/frontend/css/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/frontend/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet">
     @stack('styles')
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -50,11 +54,15 @@
     <script src="{{ asset('public/frontend/js/jquery.nice-select.min.js') }}"></script>
     <script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
     <script src="{{ asset('public/frontend/js/script.js') }}"></script>
+    <script src="{{ asset('public/frontend/sweetalert2/sweetalert2.min.js') }}"></script>
     <script type="text/javascript">
         $("textarea").each(function () {
             CKEDITOR.replace('fees_description');
             let id = $(this).attr('id');
             CKEDITOR.replace(id);
+        });
+        $(document).on("contextmenu", function(e) {
+            e.preventDefault();
         });
     </script>
     @stack('scripts')

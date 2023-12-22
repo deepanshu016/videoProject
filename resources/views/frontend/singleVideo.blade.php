@@ -3,7 +3,38 @@
 @section('content')
 @push('styles')
     <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
+    <style>
+        .modal-backdrop.show {
+            -webkit-filter: blur(4px);
+            -moz-filter: blur(4px);
+            -o-filter: blur(4px);
+            -ms-filter: blur(4px);
+            filter: blur(4px);
+            z-index: 1040;
+        }
+        .modal-content {
+            z-index: 1050;
+            -webkit-filter: none;
+            -moz-filter: none;
+            -o-filter: none;
+            -ms-filter: none;
+            filter: none;
+        }
+        .single-item{
+            max-height: 130px;
+            min-height: 134px;
+        }
+    </style>
 @endpush
+<div class="modal fade" id="unlockModal" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+
+            <div class="modal-body render-restriction">  </div>
+        </div>
+    </div>
+</div>
 <section class="mt-40">
     <div class="container-fluid">
         <div class="row">
@@ -15,14 +46,6 @@
                             <h2 class="video-title">{{ $singleVideo->video_title }}</h2>
                             <div class="video-player-content">
                                 <video id="player" controls crossorigin playsinline></video>
-                                <button class="play_video">Play Video</button>
-                                <div class="video-player-content-btn text-left">
-                                    <a href="" class="bttn-small btn-fill"><i class="fa fa-user"></i>Robbin</a>
-                                    <a href="" class="bttn-small btn-fill"><i class="fa fa-eye"></i>24M</a>
-                                    <a href="" class="bttn-small btn-fill"><i class="fa fa-thumbs-up"></i>16k</a>
-                                    <a href="" class="bttn-small btn-fill"><i class="fa fa-thumbs-down"></i>9k</a>
-                                    <a href="" class="bttn-small btn-fill"><i class="fa fa-download"></i>Download Now</a>
-                                </div>
                                 <div class="content mb-30">
                                     <div class="section-title">
                                         <h2>Description</h2>
@@ -80,7 +103,7 @@
         <div class="popular-item-2 owl-carousel">
             @if(!empty($relatedVideos))
                 @foreach($relatedVideos as $related)
-                    <a href="{{ route('video',['video_id'=>$related->video_id,'video_slug'=>$related->slug]) }}" class="single-item">
+                    <a href="{{ route('video',['video_id'=>$related->video_id,'video_slug'=>$related->slug]) }}" class="single-item related-videos">
                         <img src="{{ $related->video_futured_image }}" alt="">
                         <h4>{{ $related->video_title }}</h4>
                     </a>
@@ -89,11 +112,41 @@
         </div>
     </div>
 </section><!--Section-->
+
 @endsection
 @push('scripts')
     <script src="https://cdn.plyr.io/3.6.8/plyr.polyfilled.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
     <script>
+        var video_id = "{{ request()->segment(2) }}";
+        let isVideoPlaying = false;
+        window.onload = ()=>{
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: "{{ route('get.single.video') }}",
+                data:{id:video_id},
+                dataType: 'json',
+                success: function(data){
+                    $(".render-restriction").html(data.html);
+                    $("#unlockModal").modal('show');
+                    $('#unlockModal').modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+                }
+            });
+        }
+        function checkVideoPlaying() {
+          return localStorage.getItem('isVideoPlaying');
+        }
+        isVideoPlaying = true;
         const player = new Plyr('#player');
         const video_type = "{{ $singleVideo->video_type }}";
         const video_url = video_type ===  '2' ? "{{ $singleVideo->video_embeded_code }}" : "{{ $singleVideo->upload_video }}";
@@ -116,16 +169,17 @@
             //     }
             // });
         // }
-        $(".play_video").click(function(e){
+        $("body").on('click','.unlock-now',function(e){
             const videoElement = document.getElementById('player');
-            videoElement.addEventListener('loadedmetadata', async () => {
-                try {
-                    await videoElement.requestPictureInPicture();
-                } catch (error) {
-                    console.error('Error requesting Picture-in-Picture:', error);
-                }
-            });
+            // videoElement.addEventListener('loadedmetadata', async () => {
+            //     try {
+            //         await videoElement.requestPictureInPicture();
+            //     } catch (error) {
+            //         console.error('Error requesting Picture-in-Picture:', error);
+            //     }
+            // });
             e.preventDefault();
+            $("#unlockModal").modal('hide');
             if (video_platform === 'youtube') {
                 player.source = {
                     type: 'video',
@@ -147,7 +201,45 @@
                     ],
                 };
             }
+            localStorage.setItem('isVideoPlaying', true);
         })
+
+        $(document).on('click', function(event) {
+          if (!$(event.target).closest('.video-player-content').length && checkVideoPlaying() && !$(event.target).closest('#unlockModal').length && !$(event.target).closest('.swal2-container').length && !$(event.target).closest('.owl-stage').length) {
+                showSweetAlert();
+          }
+        });
+        $(document).on('click','.related-videos',function(e){
+            e.preventDefault();
+            var url = $(this).attr('href');
+            showSweetAlert(url);
+        })
+        function showSweetAlert(url = ''){
+            Swal.fire({
+                title: "Are you sure to leave now?",
+                text: "If you leave current session will be expired ",
+                type: "warning",
+                showCancelButton: true,
+                allowOutsideClick: false,
+                allowEscapeKey: false,  
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Yes",
+                cancelButtonText: "No",
+                closeOnConfirm: true,
+                closeOnCancel: true
+            }).then((result) => {
+              if (result.isConfirmed) {
+                localStorage.setItem('isVideoPlaying',false);
+                if(url === ''){
+                    window.location.href = "{{ route('home') }}";
+                }else{
+                    window.location.href = url;
+                }
+              } else if (result.isDenied) {
+               alert('Action Cancelled');
+              }
+            });
+        }
         // function loadVideo(videoType, videoUrl) {
         //     if (videoType === 'youtube') {
         //         player.source = {

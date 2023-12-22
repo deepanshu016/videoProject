@@ -2,7 +2,7 @@
 <header class="header-area mint-bg">
     <nav class="navbar navbar-expand-xl main-menu">
         <div class="container-fluid">
-            <a href="index.html" class="footer-logo"><img src="{{ asset('public/frontend/images/logo.png') }}" alt="" style="width: 99px;"></a>
+            <a href="{{ route('home') }}" class="footer-logo"><img src="{{ asset('public/frontend/images/logo.png') }}" alt="" style="width: 99px;"></a>
             <a class="navbar-brand" href="{{ route('home') }}"><img src="assets/images/logo.png" class="d-inline-block align-top" alt=""></a>
             <div class="navbar-nav m-auto menu-search">
                 <form action="#">
@@ -21,7 +21,7 @@
                 <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('about.us') }}">About Us</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('terms.condition') }}">Terms & Conditions</a></li>
-               
+
             </ul>
             <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="menu-toggle"></span>

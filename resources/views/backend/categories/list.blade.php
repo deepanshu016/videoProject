@@ -20,13 +20,13 @@
         <div class="row">
 		   <div class="col-lg-12">
 		      <div class="card">
-		         <div class="card-header">
+		         <div class="card-header d-flex align-items-center justify-content-between">
 		            <h4 class="card-title mb-0 flex-grow-1">Categories</h4>
-		            <div class="live-preview">
+                    <a href="{{ route('admin.add.category') }}" class="btn btn-outline-primary waves-effect waves-light shadow-none"><i class="mdi mdi-plus"></i> Add Category</a>
+		            {{-- <div class="live-preview">
                         <div class="d-flex flex-wrap gap-2">
-                            <a href="{{ route('admin.add.category') }}" class="btn btn-outline-primary waves-effect waves-light shadow-none">Add</a>
                         </div>
-                    </div>
+                    </div> --}}
 		         </div>
 		         <!-- end card header -->
 		         <div class="card-body">
@@ -54,7 +54,7 @@
 @section('page_script')
 <script type="text/javascript">
   $(function () {
- 
+
     var table = $('.data-table').DataTable({
         processing: true,
         serverSide: true,
@@ -65,7 +65,7 @@
             {data: 'category', name: 'category'},
         ]
     });
-    
+
   });
 </script>
 @endsection

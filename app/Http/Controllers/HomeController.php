@@ -63,4 +63,13 @@ Class HomeController extends Controller {
         $relatedVideos = VideoResource::collection($relatedVideos);
         return view('frontend.singleVideo',compact('categories','singleVideo','cms','relatedVideos'));
     }
+
+    public function getSingleVideo(Request $request){
+        $singleVideo = Video::find($request->id);
+        if($singleVideo){
+            $html = view('frontend.videoModal',compact('singleVideo'))->render();
+            return response()->json(array('status' => 200,'html'=>$html,'message'=>'Data fetched successfully!!'));
+        }
+        return response()->json(array('status' => 400,'html'=>'','message'=>'Invalid Video ID'));
+    }
 }

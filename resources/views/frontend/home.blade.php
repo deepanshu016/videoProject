@@ -64,7 +64,7 @@
 </section><!--/Main Content Area-->
 <!--Section-->
 <!--Trending items-->
-<section class="section-padding-2 main-content-1 pt-0">
+<section class="section-padding-2 main-content-1 pt-0 trending">
     <div class="container-fluid">
         <div class="row">
             <div class="col-xl-8">
@@ -255,7 +255,7 @@
 </section><!--/Trending items-->
 
  <!--Section-->
-    <section class="section-padding-2 pt-0">
+    <section class="section-padding-2 pt-0 base_item">
         <div class="container-fluid">
             <div class="row">
                 <div class="col">

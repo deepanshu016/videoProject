@@ -24,6 +24,7 @@ Route::get('/about-us', [HomeController::class,'AboutUs'])->name('about.us');
 Route::get('/contact-us', [HomeController::class,'ContactUs'])->name('contact.us');
 Route::get('/terms-condition', [HomeController::class,'termsCondition'])->name('terms.condition');
 Route::get('/privacy-policy', [HomeController::class,'privacyPolicy'])->name('privacy.policy');
+Route::post('/get-single-video', [HomeController::class,'getSingleVideo'])->name('get.single.video');
 Route::get('/videos/{category_id?}/{category_slug?}', [HomeController::class,'videosList'])->name('videos.list');
 Route::get('/video/{video_id?}/{video_slug?}/', [HomeController::class,'singleVideo'])->name('video');
 Route::prefix('admin')->group(function () {

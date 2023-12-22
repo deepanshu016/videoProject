@@ -26,7 +26,7 @@ Class VideoController extends Controller {
     // Upload Videos
     public function videoUpload(VideoUploadRequest $request)
     {
-       
+
         try{
             if($request->video_id){
                 $video = Video::where('video_id',$request->video_id)->first();
@@ -53,8 +53,7 @@ Class VideoController extends Controller {
                 $client->putObject([
                     'Bucket' => $bucketName,
                     'Key' => $fileName,
-                    'Body' => fopen(storage_path('app/public/videos/' . $fileName), 'rb'),
-                    'ACL' => 'public-read',
+                    'Body' => fopen(storage_path('app/public/videos/' . $fileName), 'rb')
                 ]);
                 $url = $client->getObjectUrl($bucketName, $fileName);
                 $video->upload_video = $url;
@@ -66,18 +65,18 @@ Class VideoController extends Controller {
                 $path = $request->file('video_image')->store('uploads', 'public');
                 $video->video_futured_image = $path;
             }
-            $video->category_id = 1;
+            $video->category_id = $request->category;
             $video->video_type = $request->video_type;
             $video->video_title = $request->video_title;
             $video->slug = $this->slug($request->video_title);
             $video->price = $request->price;
             $video->time_for_live = $request->time_for_live;
-            $video->add_tags = !empty($request->video_tags) ? $request->video_tags : '';
+            $video->add_tags = ($request->video_tags) ? $request->video_tags : '';
             $video->trending_topic = $request->trending_topics;
             $video->video_description = $request->video_description;
-              
+
             $video->save();
-            if($video->video_id){
+            if($video->id){
                 return response()->json(array('status'=> 'success','msg'=>'Video uploaded successfully','url'=>url('admin/video-list')));
             }
             return response()->json(array('status'=> 'error','msg'=>'Something went wrong','url'=>''));
@@ -239,7 +238,7 @@ Class VideoController extends Controller {
                 }
                 return response()->json($response);
             }else{
-               return redirect(url('admin'))->with('error','Access  not allowed');    
+               return redirect(url('admin'))->with('error','Access  not allowed');
             }
         }catch(Exception $e){
             \Log::debug($e->getMessage());

@@ -88,12 +88,12 @@
                                                  <span class="text-danger" id="video_url"> </span>
                                               </div>
                                             @endif
-                                            
+
                                             <div class="mb-3">
                                                <label for="videoTitle" class="form-label">Video Title</label>
                                                <input type="text" class="form-control" id="videoTitle" placeholder="Enter video title" name="video_title" value="@if(!empty($singleVideo)) {{ $singleVideo->video_title }} @endif">
                                                <span class="text-danger" id="video_title"> </span>
-                                            </div> 
+                                            </div>
                                             <div class="mb-3">
                                                <label for="videoTitle" class="form-label">Video Price</label>
                                                <input type="text" class="form-control" id="prices" placeholder="Enter video Price" name="price" value="@if(!empty($singleVideo)) {{ $singleVideo->price }} @endif">
@@ -129,7 +129,7 @@
                                             </div>
                                             <div class="mb-3">
                                                <label for="addTags" class="form-label">Add Tags<br/><small style="color: red;">(Please add tags comma separated)</small></label>
-                                               <input type="text" class="form-control"  placeholder="Enter tags" name="video_tags" value="{!! $singleVideo->add_tags !!}">
+                                               <input type="text" class="form-control"  placeholder="Enter tags" name="video_tags" value="@if(!empty($singleVideo)) {!! $singleVideo->add_tags !!}@endif">
                                                <span class="text-danger" id="video_tags"> </span>
                                             </div>
                                             <div class="mb-3">
